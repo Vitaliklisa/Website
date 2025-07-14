@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Tomorrow & Tomorrow & Tomorrow – By Gabrielle Zevin</title>
+    <style>
+      /* GOOGLE FONTS */
+      @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+
+      /* CSS VARIABLES */
+      :root {
+        --bg: #0a0a0a;
+        --fg: #e0e0e0;
+        --accent1: #00ff00;
+        --accent2: #ff0066;
+        --primary: #8f00ff;
+      }
+
+      /* RESET & BASE */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "VT323", monospace;
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* GRID & SCANLINES */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 39px,
+            rgba(255, 255, 255, 0.03) 40px
+          ),
+          repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 39px,
+            rgba(255, 255, 255, 0.03) 40px
+          ),
+          linear-gradient(
+            45deg,
+            var(--primary),
+            var(--accent1),
+            var(--accent2),
+            var(--primary)
+          );
+        background-size: 100% 100%, 100% 100%, 500% 500%;
+        animation: slideBG 20s linear infinite;
+        opacity: 0.15;
+        z-index: -2;
+      }
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          180deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.08) 2px,
+          rgba(0, 0, 0, 0.08) 4px
+        );
+        z-index: -1;
+      }
+      @keyframes slideBG {
+        0% {
+          background-position: 0% 0, 0 0, 100% 100%;
+        }
+        50% {
+          background-position: 100% 100%, 0 0, 0 0;
+        }
+        100% {
+          background-position: 0% 0, 0 0, 100% 100%;
+        }
+      }
+
+      /* RAINBOW ANIMATION SHARED */
+      @keyframes rainbow {
+        0% {
+          background-position: 0% 0;
+        }
+        100% {
+          background-position: 400% 0;
+        }
+      }
+
+      /* HEADER */
+      header {
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+      header h1 {
+        font-family: "Press Start 2P", cursive;
+        font-size: 2.5rem;
+        background: linear-gradient(
+          90deg,
+          red,
+          orange,
+          yellow,
+          green,
+          blue,
+          indigo,
+          violet,
+          red
+        );
+        background-size: 400% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: rainbow 8s linear infinite;
+        margin-bottom: 0.5rem;
+      }
+      header p {
+        font-family: "Press Start 2P", cursive;
+        font-size: 1rem;
+        background: linear-gradient(
+          90deg,
+          red,
+          orange,
+          yellow,
+          green,
+          blue,
+          indigo,
+          violet,
+          red
+        );
+        background-size: 400% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: rainbow 8s linear infinite;
+        margin-top: 0.5rem;
+      }
+      .cover-image {
+        margin-top: 1rem;
+        max-width: 180px;
+        border: 3px solid var(--accent1);
+        box-shadow: 0 0 12px var(--accent1), 0 0 24px var(--primary);
+        transition: transform 0.3s;
+      }
+      .cover-image:hover {
+        transform: scale(1.05);
+      }
+
+      /* NAVIGATION */
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      nav a {
+        font-family: "VT323", monospace;
+        font-size: 1.2rem;
+        color: var(--fg);
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border: 2px solid var(--primary);
+        border-radius: 4px;
+        transition: all 0.3s;
+      }
+      nav a:hover {
+        background: var(--primary);
+        color: var(--bg);
+        box-shadow: 0 0 8px var(--primary), 0 0 16px var(--accent2);
+        transform: translateY(-2px);
+      }
+
+      /* MAIN CONTAINER */
+      main {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: rgba(10, 10, 10, 0.8);
+        border: 2px solid var(--primary);
+        border-radius: 8px;
+        box-shadow: 0 0 16px var(--primary);
+      }
+      section {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px dashed var(--accent1);
+      }
+      section:last-child {
+        border-bottom: none;
+      }
+      section h2 {
+        font-family: "Press Start 2P", cursive;
+        font-size: 1.5rem;
+        color: var(--accent1);
+        text-shadow: 0 0 8px var(--accent1);
+        margin-bottom: 1.5rem;
+        letter-spacing: 1px;
+      }
+
+      /* ANALYSIS ARTICLES */
+      #analysis article {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: rgba(20, 20, 20, 0.6);
+        border-left: 4px solid var(--accent2);
+        transition: all 0.3s;
+      }
+      #analysis article:hover {
+        background: rgba(30, 30, 30, 0.8);
+        transform: translateX(5px);
+      }
+      #analysis h3 {
+        font-size: 1.3rem;
+        color: var(--accent2);
+        margin-bottom: 0.8rem;
+        font-family: "Press Start 2P", cursive;
+      }
+      p {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+      }
+      blockquote {
+        font-style: italic;
+        padding: 0.5rem 1rem;
+        border-left: 3px solid var(--primary);
+        margin: 1rem 0;
+        color: #ccc;
+      }
+
+      /* MEDIA */
+      .media-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+      audio,
+      video {
+        display: block;
+        width: 100%;
+        max-width: 600px;
+        margin: 0.5rem 0 1rem;
+        border: 2px solid var(--accent2);
+        box-shadow: 0 0 8px var(--accent2);
+        border-radius: 8px;
+      }
+      .media-caption {
+        font-size: 5rem;
+        color: #aaa;
+        text-align: center;
+      }
+
+      /* GALLERY */
+      #gallery {
+        padding: 1rem;
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .image-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: auto;
+        gap: 1rem;
+      }
+
+      /* Make the video container span both rows */
+      .image-grid .video {
+        grid-row: 1 / span 2;
+      }
+
+      .media-container {
+        background: #2a2a2a;
+        padding: 0.5rem;
+        border-radius: 4px;
+        text-align: center;
+      }
+
+      .media-container h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      .media-container video,
+      .media-container img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .media-caption {
+        margin-top: 0rem;
+        font-size: 1rem;
+        color: #ccc;
+      }
+
+      /* LISTS & LINKS */
+      ul,
+      ol {
+        margin-left: 1.5rem;
+        font-size: 1.1rem;
+      }
+      li {
+        margin-bottom: 0.5rem;
+      }
+      a {
+        color: var(--accent1);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      a:hover {
+        color: var(--accent2);
+        text-decoration: underline;
+      }
+
+      /* FOOTER */
+      footer {
+        text-align: center;
+        padding: 1.5rem;
+        background: rgba(0, 0, 0, 0.8);
+        font-size: 0.9rem;
+        color: #777;
+        border-top: 1px dashed var(--accent2);
+      }
+
+      /* RESPONSIVE */
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 1.8rem;
+        }
+        nav a {
+          font-size: 1rem;
+          padding: 0.4rem 0.8rem;
+        }
+        main {
+          padding: 1.5rem;
+        }
+        section h2 {
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Tomorrow & Tomorrow & Tomorrow</h1>
+      <p>A Psychoanalytic Exploration</p>
+      <img
+        src="Tomorrow, and Tomorrow, and Tomorrow.jpg"
+        alt="Cover of Tomorrow & Tomorrow & Tomorrow"
+        class="cover-image"
+      />
+    </header>
+
+    <nav>
+      <a href="#summary">SUMMARY</a>
+      <a href="#author">AUTHOR</a>
+      <a href="#analysis">ANALYSIS</a>
+      <a href="#media">MULTIMEDIA</a>
+      <a href="#gallery">GALLERY</a>
+      <a href="#links">RESOURCES</a>
+    </nav>
+
+    <main>
+      <section id="summary">
+        <h2>Game Summary</h2>
+        <p>
+          <em>Tomorrow, and Tomorrow, and Tomorrow</em> follows the decades-long
+          partnership between Sadie Green and Sam Masur, two brilliant game
+          designers who meet as children in a hospital gaming room. Their
+          creative collaboration becomes a vehicle for exploring trauma,
+          identity, and human connection through digital worlds.
+        </p>
+        <p>
+          The novel spans thirty years of friendship and creative partnership,
+          from their breakout success with <em>Ichigo</em> to later projects
+          that push the boundaries of interactive storytelling. Zevin uses game
+          development as a lens to examine how we construct our identities and
+          relationships in both virtual and real spaces.
+        </p>
+      </section>
+
+      <section id="author">
+        <h2>About Gabrielle Zevin</h2>
+        <div
+          style="
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 1rem;
+          "
+        >
+          <div style="flex: 1">
+            <p>
+              Gabrielle Zevin is an internationally bestselling author whose
+              works explore the intersection of technology, creativity, and
+              human relationships. A graduate of Harvard University, Zevin has
+              written numerous novels for adults and young adults, including
+              <em>The Storied Life of A.J. Fikry</em> and
+              <em>Young Jane Young</em>.
+            </p>
+            <p>
+              Her deep understanding of gaming culture and psychological insight
+              make <em>Tomorrow, and Tomorrow, and Tomorrow</em> a unique
+              exploration of digital creativity as both artistic expression and
+              emotional survival mechanism.
+            </p>
+          </div>
+          <img
+            src="Gabruelle Zevin.jpg"
+            alt="Gabrielle Zevin"
+            style="
+              max-width: 180px;
+              border: 2px solid var(--accent2);
+              border-radius: 4px;
+              box-shadow: 0 0 8px var(--accent2);
+            "
+          />
+        </div>
+      </section>
+
+      <section id="analysis">
+        <h2>Psychoanalytic Analysis</h2>
+
+        <article>
+          <h3>Trauma & Repetition Compulsion</h3>
+          <p>
+            Zevin roots her protagonists' artistic drive in childhood trauma.
+            Sadie's car accident leaves physical and emotional scars that
+            manifest in her perfectionist coding. Her debugging marathons become
+            Freudian repetitions—attempts to master the uncontrollable trauma
+            through symbolic reenactment in game mechanics.
+          </p>
+          <blockquote>
+            "Every bug Sadie repairs is a minor triumph over the powerlessness
+            she experienced in the hospital, a symbolic healing tied to her
+            unresolved terror."
+          </blockquote>
+        </article>
+
+        <article>
+          <h3>Sublimation in Game Design</h3>
+          <p>
+            Sam's design philosophy exemplifies psychoanalytic sublimation.
+            After losing his mother, he channels grief into creating tranquil
+            game worlds with balanced physics and harmonic color palettes. His
+            code transforms raw sorrow into digital serenity, though Zevin
+            reveals this sublimation as imperfect—glitches remind him that
+            control is always an illusion.
+          </p>
+        </article>
+
+        <article>
+          <h3>Transference in Collaboration</h3>
+          <p>
+            The Sadie-Sam partnership operates through unconscious projections.
+            Sadie seeks validation she projects onto Sam, while Sam draws from
+            Sadie the maternal approval he craves. Their creative disagreements
+            mirror childhood conflicts, making their collaboration an emotional
+            laboratory where past attachments are reworked through game design.
+          </p>
+        </article>
+
+        <article>
+          <h3>The Digital Mirror Stage</h3>
+          <p>
+            The avatars in Sadie and Sam's games enact Lacan's mirror stage in
+            digital form. Players begin with clumsy characters that evolve into
+            idealized versions, reflecting the creators' own aspirations. Yet
+            glitches in these digital mirrors reveal the fragility of
+            self-idealization, forcing confrontation between imagined and real
+            identities.
+          </p>
+        </article>
+      </section>
+
+      <section id="media">
+        <h2>Multimedia Exploration</h2>
+
+        <div class="media-container">
+          <h3>Video Analysis: Trauma in Game Design</h3>
+          <video controls poster="video-poster.jpg">
+            <source src="analysis-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          <p class="media-caption">
+            A 3-minute exploration of how trauma shapes creative expression in
+            the novel
+          </p>
+        </div>
+
+        <div class="media-container">
+          <h3>Audio Commentary: Key Themes</h3>
+          <audio controls>
+            <source src="audio-analysis.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+          <p class="media-caption">
+            Listen to the psychoanalytic reading of the novel's central themes
+            (2:30)
+          </p>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <h2>Visual Gallery</h2>
+
+        <div class="image-grid">
+          <!-- Video spans two rows on the left -->
+          <div class="media-container video">
+            <video controls poster="visual-poster.jpg">
+              <source src="visual.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <p class="media-caption">Visual world</p>
+          </div>
+
+          <!-- Right column: top image -->
+          <div class="media-container">
+            <img src="Gameplay.png" alt="Game concept art from the novel" />
+            <p class="media-caption">Key concept art</p>
+          </div>
+
+          <!-- Right column: bottom image -->
+          <div class="media-container">
+            <img
+              src="Characterdesign.jpg"
+              alt="Character development sketches"
+            />
+            <p class="media-caption">Character sketches</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="links">
+        <h2>Further Resources</h2>
+        <ul>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=YNDAZw1x_Mo"
+              target="_blank"
+              >Author Interview: Creative Process</a
+            >
+            - Gabrielle Zevin discusses gaming and storytelling
+          </li>
+          <li>
+            <a
+              href="https://www.goodreads.com/book/show/58784475-tomorrow-and-tomorrow-and-tomorrow"
+              target="_blank"
+              >Goodreads Community Reviews</a
+            >
+            - Reader perspectives on the novel
+          </li>
+          <li>
+            <a
+              href="https://www.youtube.com/watch?v=RYgmF3PJItg"
+              target="_blank"
+              >Literary Analysis Lecture</a
+            >
+            - Academic discussion of the novel's themes
+          </li>
+          <li>
+            <a
+              href="https://archive.org/details/frsews9ois6yn9eexj90prje8wrm4gbaz2gyx2mv"
+              target="_blank"
+              >Book Club Discussion</a
+            >
+            - Reader reactions and interpretations
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 All rights reserved.</p>
+      <p>Created by Vitalii Khomenoko</p>
+    </footer>
+  </body>
+</html>
